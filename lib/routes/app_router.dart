@@ -1,12 +1,14 @@
-import 'package:go_router/go_router.dart';
-import 'package:team_week_task/views/home_screen.dart';
-import 'package:team_week_task/views/login_screen.dart';
-import 'package:team_week_task/views/register_screen.dart';
-import 'package:team_week_task/views/splash_screen.dart';
 
+
+
+import 'package:go_router/go_router.dart';
+import 'package:password_manager/views/home_screen.dart';
+import 'package:password_manager/views/login_screen.dart';
+import 'package:password_manager/views/register_screen.dart';
+import 'package:password_manager/views/splash_screen.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/splash',
+  initialLocation: '/login',
   routes: [
     GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
     GoRoute(
