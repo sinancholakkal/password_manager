@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is AuthSuccessState) {
           context.push(
             "/viewItem",
-            extra: PasswordModel(name: "Instagram", password: "123@dffggg"),
+            extra: state.model,
           );
         } else {
           flutterToast(msg: "Authentication field!");
@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: ListTile(
                                         onTap: () {
                                           context.read<LocalAuthBloc>().add(
-                                            LocalAuthenticationEvent(),
+                                            LocalAuthenticationEvent(model: model),
                                           );
                                         },
                                         leading: Container(

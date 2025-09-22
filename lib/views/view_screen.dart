@@ -82,7 +82,7 @@ class _ViewScreenState extends State<ViewScreen> {
                 icon: null,
                 labelText: "Password",
                 readOnly: true,
-                controller: nameController,
+                controller: passwordController,
               )
               ,if(usernameController.text.isNotEmpty)SearchFiledWidget(
                 icon: null,
@@ -91,6 +91,7 @@ class _ViewScreenState extends State<ViewScreen> {
                 controller: usernameController,
               ),
               if(noteController.text.isNotEmpty)SearchFiledWidget(
+                maxLine: 4,
                 icon: null,
                 labelText: "Note",
                 readOnly: true,
