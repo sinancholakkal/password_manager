@@ -23,4 +23,5 @@ class AppStrings {
   static const vault = "Vault";
   static const updateMsg = "Updated";
   static const addMsg = "Added";
+    static const delete = "Are you sure you want to delete?";
 }

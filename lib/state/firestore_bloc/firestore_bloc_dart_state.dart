@@ -16,3 +16,4 @@ class LoadedState extends FirestoreBlocDartState {
   LoadedState({required this.models});
   
 }
+class DataDeletedState extends FirestoreBlocDartState{}

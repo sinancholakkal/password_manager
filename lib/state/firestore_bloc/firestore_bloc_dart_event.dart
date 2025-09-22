@@ -17,4 +17,8 @@ class UpdateDataEvent extends FirestoreBlocDartEvent{
   UpdateDataEvent({required this.model});
   
 }
+class DeleteEvent extends FirestoreBlocDartEvent{
+  final String id;
+  DeleteEvent({required this.id});
+}
 

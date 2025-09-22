@@ -78,4 +78,16 @@ class FirestoreService {
       throw "$e";
     }
   }
+  Future<void> deleteData({required String id}) async {
+    try {
+      await instance
+          .collection("user")
+          .doc(user!.uid)
+          .collection("datas")
+          .doc(id).delete();
+    } catch (e) {
+      log("SOmthing issue while delete $e");
+      throw "$e";
+    }
+  }
 }

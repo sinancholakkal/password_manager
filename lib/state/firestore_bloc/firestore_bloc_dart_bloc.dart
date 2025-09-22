@@ -43,5 +43,15 @@ class FirestoreBlocDartBloc extends Bloc<FirestoreBlocDartEvent, FirestoreBlocDa
         log(e.toString());
       }
     });
+
+     on<DeleteEvent>((event, emit) async{
+      try{
+        emit(LoadingState());
+        await services.deleteData(id: event.id);
+        emit(DataDeletedState());
+      }catch(e){
+        log(e.toString());
+      }
+    });
   }
 }
