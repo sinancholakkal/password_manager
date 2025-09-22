@@ -3,7 +3,7 @@ import 'package:password_manager/utils/app_color.dart';
 import 'package:password_manager/utils/app_sizedbox.dart';
 import 'package:password_manager/utils/app_sizes.dart';
 import 'package:password_manager/utils/app_string.dart';
-import 'package:password_manager/views/cardregister_form_session.dart';
+import 'package:password_manager/views/widgets/cardregister_form_session.dart';
 import 'package:password_manager/views/widgets/card_top_session.dart';
 
 

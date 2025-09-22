@@ -18,21 +18,18 @@ class CardRegisterFormSession extends StatefulWidget {
 }
 
 class _CardRegisterFormSessionState extends State<CardRegisterFormSession> {
-  final nameController = TextEditingController();
-  String? genderController;
 
   final emailController = TextEditingController();
-  final contactNumberController = TextEditingController();
   final passwordController = TextEditingController();
   final conformPasswordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  Uint8List? imagebyte;
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    conformPasswordController.dispose();
     super.dispose();
   }
 
@@ -111,21 +108,8 @@ class _CardRegisterFormSessionState extends State<CardRegisterFormSession> {
                 text: AppStrings.register,
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // if (imagebyte == null) {
-                    //   flutterToast(msg: "Please select your image!");
-                    //   log("Image no selected");
-                    // } else {
-                    //   log(" Validated--------------------");
-                    //   final UserModel userModel = UserModel(
-                    //     gender: genderController!,
-                    //     name: nameController.text.trim(),
-                    //     phone: contactNumberController.text.trim(),
-                    //     password: passwordController.text.trim(),
-                    //     profile: imagebyte!,
-                    //     email: emailController.text.trim(),
-                    //   );
-                    //   context.read<AuthBloc>().add(UserRegisterEvent(userModel: userModel));
-                    // }
+                    log(" Validated--------------------");
+                 
                   } else {
                     log("Not Validated--------------------");
                   }
