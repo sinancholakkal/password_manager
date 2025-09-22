@@ -5,12 +5,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:password_manager/state/auth_bloc/auth_bloc.dart' hide AuthSuccessState;
+import 'package:password_manager/models/password_model.dart';
+import 'package:password_manager/state/auth_bloc/auth_bloc.dart'
+    hide AuthSuccessState;
 import 'package:password_manager/state/local_auth_bloc/local_auth_bloc.dart';
 import 'package:password_manager/utils/app_color.dart';
 import 'package:password_manager/utils/app_sizedbox.dart';
 import 'package:password_manager/utils/app_sizes.dart';
 import 'package:password_manager/utils/app_string.dart';
+import 'package:password_manager/views/widgets/add_button.dart';
 import 'package:password_manager/views/widgets/search_filed_widget.dart';
 import 'package:password_manager/views/widgets/text_feild.dart';
 import 'package:password_manager/views/widgets/toast.dart';
@@ -22,9 +25,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<LocalAuthBloc, LocalAuthState>(
       listener: (context, state) {
-        if(state is AuthSuccessState){
-          context.push("/viewedit");
-        }else{
+        if (state is AuthSuccessState) {
+          context.push("/viewItem",extra: PasswordModel(name: "Instagram", password: "123@dffggg"));
+        } else {
           flutterToast(msg: "Authentication field!");
         }
       },
@@ -63,9 +66,10 @@ class HomeScreen extends StatelessWidget {
                 spacing: 5,
                 children: [
                   Icon(Icons.lock, color: kGrey),
-                  TextWidget(text: "Passwords (0)"),
+                  TextWidget(text: "Passwords (0)",size: 16,),
                 ],
               ),
+              AppSizedBox.h16,
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
@@ -75,8 +79,10 @@ class HomeScreen extends StatelessWidget {
                         height: 90,
                         child: Center(
                           child: ListTile(
-                            onTap: ()  {
-                              context.read<LocalAuthBloc>().add(LocalAuthenticationEvent());
+                            onTap: () {
+                              context.read<LocalAuthBloc>().add(
+                                LocalAuthenticationEvent(),
+                              );
                             },
                             leading: Container(
                               width: 45,
@@ -88,11 +94,13 @@ class HomeScreen extends StatelessWidget {
                               child: Icon(Icons.lock),
                             ),
                             title: TextWidget(
+                              textAlign: TextAlign.start,
                               text: "Instagram",
                               fontWeight: FontWeight.bold,
+                              size: 14,
                             ),
                             subtitle: (index % 2 == 0)
-                                ? TextWidget(text: "www.instagram.com")
+                                ? TextWidget(text: "www.instagram.com",size: 14, textAlign: TextAlign.start,)
                                 : null,
                             trailing: IconButton(
                               onPressed: () {
@@ -125,39 +133,3 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class AddButton extends StatelessWidget {
-  void Function()? onTap;
-  AddButton({super.key, this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          width: 84,
-          height: 54,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: Color(0xFF1E6F9F),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            spacing: 6,
-            children: [
-              TextWidget(
-                text: "Add",
-                size: 14,
-                fontWeight: FontWeight.w700,
-                color: kWhite,
-              ),
-              Icon(Icons.add_circle_outline, color: kWhite, size: 18),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

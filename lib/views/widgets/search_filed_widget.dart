@@ -15,7 +15,9 @@ class SearchFiledWidget extends StatelessWidget {
     this.readOnly,
     this.ontap,
     this.hintText,
+    this.icon = const Icon(Icons.search)
   });
+  final Widget? icon;
   final String? labelText;
   final Color? borderColor;
   final double? height;
@@ -38,7 +40,7 @@ class SearchFiledWidget extends StatelessWidget {
       validator: validator,
       style: TextStyle(color: kWhite, height: height),
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.search,size: 30,),
+        prefixIcon: icon,
         label: (labelText==null)?null:Text(labelText!),
         hintText: hintText,
         filled: true,
