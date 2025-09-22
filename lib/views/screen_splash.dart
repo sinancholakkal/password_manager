@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:password_manager/state/auth_bloc/auth_bloc.dart';
 import 'package:password_manager/utils/app_color.dart';
 
 class ScreenSplash extends StatefulWidget {
@@ -13,20 +15,27 @@ class ScreenSplash extends StatefulWidget {
 class _ScreenSplashState extends State<ScreenSplash> {
   @override
   void initState() {
-    splashingTiming();
+    context.read<AuthBloc>().add(CheckLoginStatusEvent());
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgcolor,
-      body: Center(
-        child: Lottie.asset("asset/splash-animation.json",height: 250),
+      body: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthSuccessState) {
+          context.go("/home");
+        } else if (state is AuthUnSuccessState) {
+          context.go("/login");
+        }
+      },
+        
+        child: Center(
+          child: Lottie.asset("asset/splash-animation.json", height: 250),
+        ),
       ),
     );
-  }
-  Future<void>splashingTiming()async{
-    await Future.delayed(Duration(milliseconds: 2500));
-    context.go("/login");
   }
 }

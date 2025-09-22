@@ -19,5 +19,6 @@ class AppStrings {
   static const logoutS = "Logout successful";
   static const logoutF = "Logout failed";
  static final List<String> genders = ["Male", "Female", "Other"];
+ static const createdAcc = "Account registered";
 
 }
