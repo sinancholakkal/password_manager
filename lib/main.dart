@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/firebase_options.dart';
 import 'package:password_manager/routes/app_router.dart';
 import 'package:password_manager/state/auth_bloc/auth_bloc.dart';
+import 'package:password_manager/state/local_auth_bloc/local_auth_bloc.dart';
 
 void main()async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => AuthBloc(),
+        ),
+        BlocProvider(
+          create: (context) => LocalAuthBloc(),
         ),
         
       ],

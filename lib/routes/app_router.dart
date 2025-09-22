@@ -6,6 +6,7 @@ import 'package:password_manager/views/home_screen.dart';
 import 'package:password_manager/views/login_screen.dart';
 import 'package:password_manager/views/register_screen.dart';
 import 'package:password_manager/views/screen_splash.dart';
+import 'package:password_manager/views/view_edit_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/splash',
@@ -17,5 +18,6 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(path: "/home", builder: (context, state) =>  HomeScreen()),
      GoRoute(path: "/splash", builder: (context, state) =>  ScreenSplash()),
+     GoRoute(path: '/viewedit', builder: (context, state) =>  ViewEditScreen()),
   ],
 );
