@@ -9,5 +9,5 @@ const kBlue = Colors.blue;
 const KBcolor = Colors.deepPurpleAccent;
 const Kred = Colors.red;
 
-Color bgcolor = Color(0xFF0D0D0D);
+Color bgcolor = Color.fromARGB(255, 32, 32, 32);
 Color bgcard = Color(0xFF1A1A1A);
