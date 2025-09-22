@@ -3,6 +3,7 @@
 
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/models/password_model.dart';
+import 'package:password_manager/views/add_item_screen.dart';
 import 'package:password_manager/views/home_screen.dart';
 import 'package:password_manager/views/login_screen.dart';
 import 'package:password_manager/views/register_screen.dart';
@@ -22,6 +23,11 @@ final GoRouter appRouter = GoRouter(
      GoRoute(path: '/viewItem', builder: (context, state) {
       final passWordModel = state.extra as PasswordModel;
       return ViewScreen(passwordModel: passWordModel,);
+     }),
+     GoRoute(path: '/addedit', builder: (context, state) {
+      final Map<String,dynamic> params = state.extra as Map<String,dynamic>;
+
+      return AddEditItemScreen(type: params['type'],passwordModel: params['model'],);
      }),
   ],
 );

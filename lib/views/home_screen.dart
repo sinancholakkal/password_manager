@@ -13,6 +13,7 @@ import 'package:password_manager/utils/app_color.dart';
 import 'package:password_manager/utils/app_sizedbox.dart';
 import 'package:password_manager/utils/app_sizes.dart';
 import 'package:password_manager/utils/app_string.dart';
+import 'package:password_manager/views/add_item_screen.dart';
 import 'package:password_manager/views/widgets/add_button.dart';
 import 'package:password_manager/views/widgets/search_filed_widget.dart';
 import 'package:password_manager/views/widgets/text_feild.dart';
@@ -26,7 +27,10 @@ class HomeScreen extends StatelessWidget {
     return BlocListener<LocalAuthBloc, LocalAuthState>(
       listener: (context, state) {
         if (state is AuthSuccessState) {
-          context.push("/viewItem",extra: PasswordModel(name: "Instagram", password: "123@dffggg"));
+          context.push(
+            "/viewItem",
+            extra: PasswordModel(name: "Instagram", password: "123@dffggg"),
+          );
         } else {
           flutterToast(msg: "Authentication field!");
         }
@@ -50,7 +54,12 @@ class HomeScreen extends StatelessWidget {
                     size: 44,
                   ),
                   //AddButton---------------
-                  AddButton(),
+                  AddButton(
+                    onTap: () => context.push(
+                      "/addedit",
+                      extra: {'type': ItemAddEdit.edit, 'model': null},
+                    ),
+                  ),
                 ],
               ),
               //search field---------
@@ -66,7 +75,7 @@ class HomeScreen extends StatelessWidget {
                 spacing: 5,
                 children: [
                   Icon(Icons.lock, color: kGrey),
-                  TextWidget(text: "Passwords (0)",size: 16,),
+                  TextWidget(text: "Passwords (0)", size: 16),
                 ],
               ),
               AppSizedBox.h16,
@@ -100,7 +109,11 @@ class HomeScreen extends StatelessWidget {
                               size: 14,
                             ),
                             subtitle: (index % 2 == 0)
-                                ? TextWidget(text: "www.instagram.com",size: 14, textAlign: TextAlign.start,)
+                                ? TextWidget(
+                                    text: "www.instagram.com",
+                                    size: 14,
+                                    textAlign: TextAlign.start,
+                                  )
                                 : null,
                             trailing: IconButton(
                               onPressed: () {
@@ -132,4 +145,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:password_manager/models/password_model.dart';
 import 'package:password_manager/utils/app_color.dart';
 import 'package:password_manager/utils/app_sizedbox.dart';
 import 'package:password_manager/utils/app_sizes.dart';
+import 'package:password_manager/views/add_item_screen.dart';
 import 'package:password_manager/views/widgets/search_filed_widget.dart';
 import 'package:password_manager/views/widgets/text_feild.dart';
 
@@ -49,7 +51,12 @@ class _ViewScreenState extends State<ViewScreen> {
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: kWhite),
         centerTitle: true,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.edit))],
+        actions: [IconButton(onPressed: () {
+          context.push(
+                      "/addedit",
+                      extra: {'type': ItemAddEdit.edit, 'model': widget.passwordModel},
+                    );
+        }, icon: Icon(Icons.edit))],
       ),
       body: SafeArea(
         child: Padding(
