@@ -39,6 +39,7 @@ class FirestoreService {
           .get();
       for (var res in response.docs) {
         final data = res.data();
+        log(data["name"]);
         models.add(
           PasswordModel(
             name: data["name"],

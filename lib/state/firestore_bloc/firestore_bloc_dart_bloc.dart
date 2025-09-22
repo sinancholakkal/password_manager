@@ -25,7 +25,11 @@ class FirestoreBlocDartBloc extends Bloc<FirestoreBlocDartEvent, FirestoreBlocDa
       try{
         emit(LoadingState());
         final models = await services.fetchPasswords();
-        emit(LoadedState(models: models));
+        if(models.isEmpty){
+          emit(EmptyState());
+        }else{
+          emit(LoadedState(models: models));
+        }
       }catch(e){
         log(e.toString());
       }

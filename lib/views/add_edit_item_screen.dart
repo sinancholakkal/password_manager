@@ -88,6 +88,7 @@ class _AddEditItemScreenState extends State<AddEditItemScreen> {
         if(state is SuccessState){
            context.pop();
           flutterToast(msg: isEdit?AppStrings.updateMsg:AppStrings.addMsg);
+          context.read<FirestoreBlocDartBloc>().add(FetchDatasEvent());
           context.go("/home");
         }else if(state is LoadingState){
           loadingWidget(context);
