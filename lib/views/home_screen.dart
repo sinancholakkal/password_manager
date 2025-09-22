@@ -1,10 +1,8 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:password_manager/models/password_model.dart';
 import 'package:password_manager/state/auth_bloc/auth_bloc.dart'
     hide AuthSuccessState;
@@ -13,7 +11,7 @@ import 'package:password_manager/utils/app_color.dart';
 import 'package:password_manager/utils/app_sizedbox.dart';
 import 'package:password_manager/utils/app_sizes.dart';
 import 'package:password_manager/utils/app_string.dart';
-import 'package:password_manager/views/add_item_screen.dart';
+import 'package:password_manager/views/add_edit_item_screen.dart';
 import 'package:password_manager/views/widgets/add_button.dart';
 import 'package:password_manager/views/widgets/search_filed_widget.dart';
 import 'package:password_manager/views/widgets/text_feild.dart';
@@ -57,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                   AddButton(
                     onTap: () => context.push(
                       "/addedit",
-                      extra: {'type': ItemAddEdit.edit, 'model': null},
+                      extra: {'type': ItemAddEdit.add, 'model': null},
                     ),
                   ),
                 ],
@@ -78,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                   TextWidget(text: "Passwords (0)", size: 16),
                 ],
               ),
-              AppSizedBox.h16,
+              
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) {

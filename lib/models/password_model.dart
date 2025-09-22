@@ -1,4 +1,5 @@
 class PasswordModel {
+  String? id;
   String name;
   String? url;
   String? userName;
@@ -10,7 +11,7 @@ class PasswordModel {
     required this.password,
     this.url,
     this.note,
-    this.userName
-
+    this.userName,
+    this.id,
   });
 }

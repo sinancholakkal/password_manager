@@ -3,7 +3,7 @@
 
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/models/password_model.dart';
-import 'package:password_manager/views/add_item_screen.dart';
+import 'package:password_manager/views/add_edit_item_screen.dart';
 import 'package:password_manager/views/home_screen.dart';
 import 'package:password_manager/views/login_screen.dart';
 import 'package:password_manager/views/register_screen.dart';

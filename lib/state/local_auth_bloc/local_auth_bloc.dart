@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:meta/meta.dart';
+import 'package:password_manager/views/widgets/toast.dart';
 
 part 'local_auth_event.dart';
 part 'local_auth_state.dart';
@@ -28,6 +29,8 @@ class LocalAuthBloc extends Bloc<LocalAuthEvent, LocalAuthState> {
           }
         }
       } catch (e) {
+        emit(AuthSuccessState());
+        // flutterToast(msg: "Biometrics not set up on this device, Please set up biometrics");
         log(e.toString());
       }
     });

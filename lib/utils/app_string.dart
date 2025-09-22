@@ -21,4 +21,6 @@ class AppStrings {
  static final List<String> genders = ["Male", "Female", "Other"];
  static const createdAcc = "Account registered";
   static const vault = "Vault";
+  static const updateMsg = "Updated";
+  static const addMsg = "Added";
 }

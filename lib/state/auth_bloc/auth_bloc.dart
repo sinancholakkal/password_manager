@@ -51,18 +51,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           final user = await _authService.createUserWithEmailAndPassword(
               event.email, event.password);
               log(user!.uid.toString());
-          if(user==null){
-            emit(AuthErrorState(errorMessage: "User creation failed"));
-          }else{
-            log("adding in firestore");
-             await FirebaseFirestore.instance.collection("user").doc(user.uid).set({
-              "email":event.email,
-              "password":event.password
-            });
-            emit(AuthSuccessState(user: user));
-          
-          }
-        } on FirebaseAuthException catch (e) {
+          log("adding in firestore");
+           await FirebaseFirestore.instance.collection("user").doc(user.uid).set({
+            "email":event.email,
+            "password":event.password
+          });
+          emit(AuthSuccessState(user: user));
+        
+                } on FirebaseAuthException catch (e) {
           log("Somthing wrong while Sign Up ${e.code}");
           emit(AuthErrorState(errorMessage: e.code));
         }

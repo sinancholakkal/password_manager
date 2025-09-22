@@ -4,13 +4,13 @@ import 'package:password_manager/models/password_model.dart';
 import 'package:password_manager/utils/app_color.dart';
 import 'package:password_manager/utils/app_sizedbox.dart';
 import 'package:password_manager/utils/app_sizes.dart';
-import 'package:password_manager/views/add_item_screen.dart';
+import 'package:password_manager/views/add_edit_item_screen.dart';
 import 'package:password_manager/views/widgets/search_filed_widget.dart';
 import 'package:password_manager/views/widgets/text_feild.dart';
 
 class ViewScreen extends StatefulWidget {
   final PasswordModel passwordModel;
-  ViewScreen({super.key, required this.passwordModel});
+  const ViewScreen({super.key, required this.passwordModel});
 
   @override
   State<ViewScreen> createState() => _ViewScreenState();

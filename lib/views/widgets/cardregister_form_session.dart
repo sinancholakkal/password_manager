@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -7,7 +6,7 @@ import 'package:password_manager/state/auth_bloc/auth_bloc.dart';
 import 'package:password_manager/utils/app_string.dart';
 import 'package:password_manager/utils/validators.dart';
 import 'package:password_manager/views/widgets/elevated_button.dart';
-import 'package:password_manager/views/widgets/loading_widget.dart';
+import 'package:password_manager/views/widgets/loading.dart';
 import 'package:password_manager/views/widgets/rich_text_widget.dart';
 import 'package:password_manager/views/widgets/text_form_widget.dart';
 import 'package:password_manager/views/widgets/toast.dart';
@@ -37,33 +36,6 @@ class _CardRegisterFormSessionState extends State<CardRegisterFormSession> {
 
   @override
   Widget build(BuildContext context) {
-    // return BlocListener<AuthBloc, AuthState>(
-    //   listener: (context, state) {
-    //     if (state is AuthLoadingState) {
-    //       loadingWidget(context);
-    //     } else if (state is AuthLoadedState) {
-    //       context.pop();
-    //       //flutterToast(msg: "${state.message}! Please verify your email");
-    //       context.go("/home");
-    //     } else if (state is AuthErrorState) {
-    //       context.pop();
-    //       flutterToast(msg: state.errorMessage);
-    //     }
-    //   },
-    //   child:
-
-    //  MultiBlocListener(
-    //   listeners: [
-    //     BlocListener<GenderBloc, GenderState>(
-    //       listener: (context, state) {
-    //         if (state is GenderSelectedState) {
-    //           genderController = state.gender;
-    //         } else {
-    //           genderController = null;
-    //         }
-    //       },
-    //     ),
-    //   ],
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthLoadingState) {
