@@ -20,5 +20,5 @@ class AppStrings {
   static const logoutF = "Logout failed";
  static final List<String> genders = ["Male", "Female", "Other"];
  static const createdAcc = "Account registered";
-
+  static const vault = "Vault";
 }
