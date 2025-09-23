@@ -41,7 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
           listener: (context, state) {
             if (state is AuthSuccessState) {
               context.push("/viewItem", extra: state.model);
-            } else {
+            } 
+            
+            else {
               flutterToast(msg: "Authentication field!");
             }
           },
@@ -49,7 +51,16 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocListener<FirestoreBlocDartBloc, FirestoreBlocDartState>(
           listener: (context, state) {
             if(state is DataDeletedState){
+              flutterToast(msg: "Password deleted");
               context.read<FirestoreBlocDartBloc>().add(FetchDatasEvent());
+            }
+          },
+        ),
+        BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if(state is LogoutSuccessState){
+              flutterToast(msg: AppStrings.logoutS);
+              context.go("/login");
             }
           },
         ),
@@ -85,17 +96,20 @@ class _HomeScreenState extends State<HomeScreen> {
               BlocBuilder<FirestoreBlocDartBloc, FirestoreBlocDartState>(
                 builder: (context, state) {
                   if (state is LoadingState) {
-                    return LoadDataWidget();
+                    return Expanded(
+                      child: LoadDataWidget());
                   } else if (state is EmptyState) {
-                    return Center(child: TextWidget(text: "No data"));
+                    return Expanded(
+                      child: Center(child: TextWidget(text: "No data")));
                   } else if (state is LoadedState) {
-                    return Flexible(
+                    return Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           //search field---------
                           SearchFiledWidget(
+                            ontap: () => context.push("/search",extra: state.models),
                             readOnly: true,
                             hintText: "Search vault",
                             borderColor: Color(0xFF0D0D0D),
@@ -118,97 +132,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: ListView.builder(
                               itemBuilder: (context, index) {
                                 final model = state.models[index];
-                                return Card(
-                                  color: bgcard,
-                                  child: SizedBox(
-                                    height: 90,
-                                    child: Center(
-                                      child: ListTile(
-                                        onTap: () {
-                                          context.read<LocalAuthBloc>().add(
-                                            LocalAuthenticationEvent(
-                                              model: model,
-                                            ),
-                                          );
-                                        },
-                                        leading: Container(
-                                          width: 45,
-                                          height: 45,
-                                          decoration: BoxDecoration(
-                                            color: kWhite,
-                                            borderRadius: BorderRadius.circular(
-                                              10,
-                                            ),
-                                          ),
-                                          child: Icon(Icons.lock),
-                                        ),
-                                        //Item name-------
-                                        title: TextWidget(
-                                          textAlign: TextAlign.start,
-                                          text: model.name,
-                                          fontWeight: FontWeight.bold,
-                                          size: 14,
-                                        ),
-                                        //Url-----------
-                                        subtitle: (model.url != "")
-                                            ? TextWidget(
-                                                text: model.url!,
-                                                size: 16,
-                                                textAlign: TextAlign.start,
-                                              )
-                                            : null,
-                                        trailing: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                Clipboard.setData(
-                                                  ClipboardData(
-                                                    text: model.password,
-                                                  ),
-                                                );
-                                                flutterToast(
-                                                  msg:
-                                                      "Password was copied to the clipboard",
-                                                );
-                                              },
-                                              icon: Icon(
-                                                Icons.copy,
-                                                color: Color(0xFF1E6F9F),
-                                              ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () {
-                                                showDiolog(
-                                                  context: context,
-                                                  title: "Delete",
-                                                  content: AppStrings.delete,
-                                                  confirmTap: () {
-                                                    context.pop();
-                                                    context
-                                                      .read<
-                                                        FirestoreBlocDartBloc
-                                                      >()
-                                                      .add(
-                                                        DeleteEvent(
-                                                          id: model.id!,
-                                                        ),
-                                                      );
-                                                  },
-                                                      cancelTap: () => context.pop(),
-                                                );
-                                              },
-                                              icon: Icon(
-                                                Icons.delete,
-                                                color: Color(0xFF1E6F9F),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
+                                //ItemCardWidgets
+                                return ItemCardWidget(model: model);
                               },
                               itemCount: state.models.length,
                             ),
@@ -225,9 +150,118 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            context.read<AuthBloc>().add(SignOutEvent());
+            showDiolog(context:context, title: AppStrings.logout, content:  AppStrings.logoutContent,cancelTap: () => context.pop(),confirmTap: () {
+              context.pop();
+              context.read<AuthBloc>().add(SignOutEvent());
+              
+            },);
+            
           },
           child: Icon(Icons.logout),
+        ),
+      ),
+    );
+  }
+}
+
+class ItemCardWidget extends StatelessWidget {
+  const ItemCardWidget({
+    super.key,
+    required this.model,
+  });
+
+  final PasswordModel model;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: bgcard,
+      child: SizedBox(
+        height: 90,
+        child: Center(
+          child: ListTile(
+            onTap: () {
+              context.read<LocalAuthBloc>().add(
+                LocalAuthenticationEvent(
+                  model: model,
+                ),
+              );
+            },
+            leading: Container(
+              width: 45,
+              height: 45,
+              decoration: BoxDecoration(
+                color: kWhite,
+                borderRadius: BorderRadius.circular(
+                  10,
+                ),
+              ),
+              child: Icon(Icons.lock),
+            ),
+            //Item name-------
+            title: TextWidget(
+              textAlign: TextAlign.start,
+              text: model.name,
+              fontWeight: FontWeight.bold,
+              size: 14,
+            ),
+            //Url-----------
+            subtitle: (model.url != "")
+                ? TextWidget(
+                    text: model.url!,
+                    size: 16,
+                    textAlign: TextAlign.start,
+                  )
+                : null,
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Clipboard.setData(
+                      ClipboardData(
+                        text: model.password,
+                      ),
+                    );
+                    flutterToast(
+                      msg:
+                          "Password was copied to the clipboard",
+                    );
+                  },
+                  icon: Icon(
+                    Icons.copy,
+                    color: Color(0xFF1E6F9F),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    showDiolog(
+                      context: context,
+                      title: "Delete",
+                      content: AppStrings.delete,
+                      confirmTap: () {
+                        context.pop();
+                        context
+                          .read<
+                            FirestoreBlocDartBloc
+                          >()
+                          .add(
+                            DeleteEvent(
+                              id: model.id!,
+                            ),
+                          );
+                      },
+                          cancelTap: () => context.pop(),
+                    );
+                  },
+                  icon: Icon(
+                    Icons.delete,
+                    color: Color(0xFF1E6F9F),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:password_manager/service/auth_services.dart';
+import 'package:password_manager/views/widgets/toast.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -66,14 +67,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
     on<SignOutEvent>(
       (event, emit) async{
-        log("signout event called");
-        emit(AuthLoadingState());
-        await Future.delayed(Duration(milliseconds: 1000));
         try {
           await _authService.signOut();
-          emit(AuthSuccessState());
+          emit(LogoutSuccessState());
         } catch (e) {
           log("Somthing wrong during signout $e");
+          emit(AuthErrorState(errorMessage: e.toString()));
+        }
+      },
+    );
+
+    on<ForgotEvent>(
+      (event, emit) async{
+        try {
+         final response =await _authService.forgotPassword(event.email);
+        log(response.toString());
+          if(response==null){
+            flutterToast(msg: "Reset link sent! Check your gmail");
+          }else{
+            flutterToast(msg: response);
+          }
+        } catch (e) {
+          log("Somthing wrong during forgout $e");
           emit(AuthErrorState(errorMessage: e.toString()));
         }
       },

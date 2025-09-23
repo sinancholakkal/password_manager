@@ -73,17 +73,20 @@ class _CardLoginFormSessionState extends State<CardLoginFormSession> {
                     return Validation.passWordValidation(p0);
                   },
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Icon(Icons.lock_outline, color: kBlue, size: 18),
-
-                    TextWidget(
-                      text: AppStrings.forgotPassword,
-                      color: kBlue,
-                      size: 16,
-                    ),
-                  ],
+                GestureDetector(
+                  onTap: () => context.push("/forgot"),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(Icons.lock_outline, color: kBlue, size: 18),
+                  
+                      TextWidget(
+                        text: AppStrings.forgotPassword,
+                        color: kBlue,
+                        size: 16,
+                      ),
+                    ],
+                  ),
                 ),
                 //Button for navigation---------------
                 ElevatedWidget(

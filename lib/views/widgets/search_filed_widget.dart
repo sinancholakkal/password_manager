@@ -15,7 +15,8 @@ class SearchFiledWidget extends StatelessWidget {
     this.readOnly,
     this.ontap,
     this.hintText,
-    this.icon = const Icon(Icons.search)
+    this.icon = const Icon(Icons.search),
+    this.onChanged
   });
   final Widget? icon;
   final String? labelText;
@@ -27,12 +28,14 @@ class SearchFiledWidget extends StatelessWidget {
   final bool? readOnly;
   void Function()? ontap;
   final String? hintText;
+  void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       
       onTap: ontap,
+      onChanged:onChanged,
       readOnly: readOnly??false,
       maxLines: maxLine,
       autovalidateMode: AutovalidateMode.onUserInteraction,

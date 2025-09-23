@@ -23,6 +23,7 @@ class AuthService {
     final cred = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
     uidOfUser = cred.user!.uid;
+    log(getCurrentUser()!.uid);
     return cred.user;
   }
 
@@ -37,10 +38,25 @@ class AuthService {
   //signOut
   Future<void> signOut() async {
     log("Signout called");
+    log(getCurrentUser()!.uid);
     await _auth.signOut();
   }
   //forgot---
-  Future<void>forgotPassword(String email)async{
+  Future<String?> forgotPassword(String email) async {
+  log("forgot function called");
+  try {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    return null; 
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      return 'No user found for that email.';
+    } else if (e.code == 'invalid-email') {
+      return 'The email address is not valid.';
+    } else {
+      return 'An unexpected error occurred. Please try again.';
+    }
+  } catch (e) {
+    return 'An unknown error occurred.';
   }
+}
 }

@@ -112,79 +112,81 @@ class _AddEditItemScreenState extends State<AddEditItemScreen> {
             padding: screenPadding,
             child: Form(
               key: _formKey,
-              child: Column(
-                spacing: 20,
-                children: [
-                  AppSizedBox.h70,
-                  SearchFiledWidget(
-                    validator: (value) {
-                      return Validation.nameValidate(value: value);
-                    },
-                    icon: null,
-                    labelText: "Name",
-
-                    readOnly: isread,
-                    controller: nameController,
-                  ),
-                  SearchFiledWidget(
-                    icon: null,
-                    labelText: "Url",
-                    readOnly: isread,
-                    controller: urlController,
-                  ),
-                  SearchFiledWidget(
-                    validator: (value) {
-                      return Validation.nameValidate(value: value);
-                    },
-                    icon: null,
-                    labelText: "Password",
-                    readOnly: isread,
-                    controller: passwordController,
-                  ),
-                  SearchFiledWidget(
-                    icon: null,
-                    labelText: "User name",
-                    readOnly: isread,
-                    controller: usernameController,
-                  ),
-                  SearchFiledWidget(
-                    maxLine: 4,
-                    icon: null,
-                    labelText: "Note",
-                    readOnly: isread,
-                    controller: noteController,
-                  ),
-
-                  //ElevatedWidget(text: isEdit?"Update":"Add New",)
-                  ElevatedWidget(
-                    text: isEdit ? "Update" : "Add New",
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        log(" Validated--------------------");
-                        final model = PasswordModel(
-                          name: nameController.text.trim(),
-                          password: passwordController.text.trim(),
-                          note: noteController.text.trim(),
-                          url: urlController.text.trim(),
-                          userName: usernameController.text.trim(),
-                        );
-
-                        if (isEdit) {
-                          model.id = widget.passwordModel!.id;
-                          context.read<FirestoreBlocDartBloc>().add(
-                            UpdateDataEvent(model: model),
+              child: SingleChildScrollView(
+                child: Column(
+                  spacing: 20,
+                  children: [
+                    AppSizedBox.h70,
+                    SearchFiledWidget(
+                      validator: (value) {
+                        return Validation.nameValidate(value: value);
+                      },
+                      icon: null,
+                      labelText: "Name",
+                
+                      readOnly: isread,
+                      controller: nameController,
+                    ),
+                    SearchFiledWidget(
+                      icon: null,
+                      labelText: "Url",
+                      readOnly: isread,
+                      controller: urlController,
+                    ),
+                    SearchFiledWidget(
+                      validator: (value) {
+                        return Validation.nameValidate(value: value);
+                      },
+                      icon: null,
+                      labelText: "Password",
+                      readOnly: isread,
+                      controller: passwordController,
+                    ),
+                    SearchFiledWidget(
+                      icon: null,
+                      labelText: "User name",
+                      readOnly: isread,
+                      controller: usernameController,
+                    ),
+                    SearchFiledWidget(
+                      maxLine: 4,
+                      icon: null,
+                      labelText: "Note",
+                      readOnly: isread,
+                      controller: noteController,
+                    ),
+                
+                    //ElevatedWidget(text: isEdit?"Update":"Add New",)
+                    ElevatedWidget(
+                      text: isEdit ? "Update" : "Add New",
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          log(" Validated--------------------");
+                          final model = PasswordModel(
+                            name: nameController.text.trim(),
+                            password: passwordController.text.trim(),
+                            note: noteController.text.trim(),
+                            url: urlController.text.trim(),
+                            userName: usernameController.text.trim(),
                           );
+                
+                          if (isEdit) {
+                            model.id = widget.passwordModel!.id;
+                            context.read<FirestoreBlocDartBloc>().add(
+                              UpdateDataEvent(model: model),
+                            );
+                          } else {
+                            context.read<FirestoreBlocDartBloc>().add(
+                              AddDataEvent(model: model),
+                            );
+                          }
                         } else {
-                          context.read<FirestoreBlocDartBloc>().add(
-                            AddDataEvent(model: model),
-                          );
+                          log("Not Validated--------------------");
                         }
-                      } else {
-                        log("Not Validated--------------------");
-                      }
-                    },
-                  ),
-                ],
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

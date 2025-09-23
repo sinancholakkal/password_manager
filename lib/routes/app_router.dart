@@ -4,10 +4,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/models/password_model.dart';
 import 'package:password_manager/views/add_edit_item_screen.dart';
+import 'package:password_manager/views/forgot_screen.dart';
 import 'package:password_manager/views/home_screen.dart';
 import 'package:password_manager/views/login_screen.dart';
 import 'package:password_manager/views/register_screen.dart';
 import 'package:password_manager/views/screen_splash.dart';
+import 'package:password_manager/views/search_screen.dart';
 import 'package:password_manager/views/view_screen.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -29,5 +31,12 @@ final GoRouter appRouter = GoRouter(
 
       return AddEditItemScreen(type: params['type'],passwordModel: params['model'],);
      }),
+     GoRoute(path: '/forgot', builder: (context, state) => const ForgotScreen()),
+     GoRoute(path: '/search', builder: (context, state) {
+      final params = state.extra as List<PasswordModel>;
+
+      return SearchScreen(models: params,);
+     }),
+
   ],
 );

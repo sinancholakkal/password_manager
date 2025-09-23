@@ -17,3 +17,5 @@ class AuthSuccessState extends AuthState {
   AuthSuccessState({this.user});
 }
 class AuthUnSuccessState extends AuthState {}
+
+class LogoutSuccessState extends AuthState{}

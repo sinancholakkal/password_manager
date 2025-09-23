@@ -5,7 +5,6 @@ import 'package:bloc/bloc.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:password_manager/models/password_model.dart';
-import 'package:password_manager/views/widgets/toast.dart';
 
 part 'local_auth_event.dart';
 part 'local_auth_state.dart';

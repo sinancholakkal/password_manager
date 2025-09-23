@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'password-manager-a4857.firebasestorage.app',
     iosBundleId: 'com.example.passwordManager',
   );
+
 }

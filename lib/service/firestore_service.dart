@@ -7,8 +7,9 @@ import 'package:password_manager/utils/functions.dart';
 
 class FirestoreService {
   FirebaseFirestore instance = FirebaseFirestore.instance;
-  final user = AuthService().getCurrentUser();
+  
   Future<void> addNewPassword({required PasswordModel model}) async {
+    final user = AuthService().getCurrentUser();
     final String id = getRandomId();
     try {
       await instance
@@ -30,11 +31,14 @@ class FirestoreService {
   }
 
   Future<List<PasswordModel>> fetchPasswords() async {
+    final user = AuthService().getCurrentUser();
+    log("Data fetch function called");
+    log(user!.uid.toString());
     List<PasswordModel> models = [];
     try {
       final response = await instance
           .collection("user")
-          .doc(user!.uid)
+          .doc(user.uid)
           .collection("datas")
           .get();
       for (var res in response.docs) {
@@ -59,6 +63,7 @@ class FirestoreService {
   }
 
   Future<void> updatePassword({required PasswordModel model}) async {
+    final user = AuthService().getCurrentUser();
     try {
       await instance
           .collection("user")
@@ -79,6 +84,7 @@ class FirestoreService {
     }
   }
   Future<void> deleteData({required String id}) async {
+    final user = AuthService().getCurrentUser();
     try {
       await instance
           .collection("user")

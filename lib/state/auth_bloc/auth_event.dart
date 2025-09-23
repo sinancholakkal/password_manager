@@ -17,3 +17,8 @@ class SignInEvent extends AuthEvent{
 
 class SignOutEvent extends AuthEvent{}
 
+class ForgotEvent extends AuthEvent{
+  final String email;
+  ForgotEvent({required this.email});
+}
+
