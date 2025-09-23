@@ -47,7 +47,7 @@ class _ViewScreenState extends State<ViewScreen> {
     return Scaffold(
       backgroundColor: bgcolor,
       appBar: AppBar(
-        title: TextWidget(text: "Instagram"),
+        title: TextWidget(text: widget.passwordModel.name),
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: kWhite),
         centerTitle: true,

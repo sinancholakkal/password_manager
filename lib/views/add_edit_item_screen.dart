@@ -103,9 +103,6 @@ class _AddEditItemScreenState extends State<AddEditItemScreen> {
           backgroundColor: Colors.transparent,
           iconTheme: IconThemeData(color: kWhite),
           centerTitle: true,
-          actions: isEdit
-              ? [IconButton(onPressed: () {}, icon: Icon(Icons.edit))]
-              : null,
         ),
         body: SafeArea(
           child: Padding(

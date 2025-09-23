@@ -5,6 +5,7 @@ import 'package:password_manager/models/password_model.dart';
 import 'package:password_manager/utils/app_color.dart';
 import 'package:password_manager/utils/app_sizes.dart';
 import 'package:password_manager/views/home_screen.dart';
+import 'package:password_manager/views/widgets/item_card_widget.dart';
 import 'package:password_manager/views/widgets/search_filed_widget.dart';
 import 'package:password_manager/views/widgets/text_feild.dart';
 
